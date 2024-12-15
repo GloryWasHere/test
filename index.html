@@ -1,361 +1,341 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>t9tz's home</title>
-	<meta charset="us-ascii">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&amp;display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap" rel="stylesheet">
-	<style>
-		@keyframes blink {
-			from {
-				opacity: 0;
-			}
-			to {
-				opacity: 1;
-			}
-		}
+    <title>t9tz's wired</title>
+    <meta charset="us-ascii">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+                text-shadow: -2px 0 #ff0000;
+            }
+            25% {
+                transform: translate(-2px, 2px);
+                text-shadow: 2px -2px #00ff00;
+            }
+            50% {
+                transform: translate(2px, -2px);
+                text-shadow: -2px 2px #0000ff;
+            }
+            75% {
+                transform: translate(-2px, -2px);
+                text-shadow: 2px 2px #ff0000;
+            }
+            100% {
+                transform: translate(0);
+                text-shadow: -2px 0 #ff0000;
+            }
+        }
 
-		body {
-			background: #000;
-			overflow: hidden;
-			user-select: none;
-			cursor: url(images/cursor.png) 16 16, auto !important;
-		}
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100%);
+            }
+        }
 
-		#main {
-			background: #000;
-			position: fixed;
-			top: 0;
-			left: 0;
-			height: 100%;
-			width: 100%;
-			opacity: 0;
-			transition: opacity 1s;
-			background: url(images/background.png);
-			cursor: url(images/cursor.png) 16 16, auto !important;
-		}
-		
-		#submain {
-			background: #0000;
-			color: #fff;
-			border: 1px solid #fff;
-			padding: 100px;
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			transform-origin: 50% 50%;
-			box-shadow: inset 0 0 50px #fff;
-			transition: transform 0.3s ease-in-out;
-			display: flex;
-			align-items: center;
-			cursor: url(images/cursor.png) 16 16, auto !important;
-		}
+        @keyframes blink {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
-		#t9tz {
-			font-size: 72px;
-			font-family: "Segoe UI";
-			cursor: url(images/cursor.png) 16 16, auto !important;
-		}
+        body {
+            background: #000;
+            overflow: hidden;
+            user-select: none;
+            margin: 0;
+            font-family: 'IBM Plex Mono', monospace;
+            color: #0f0;
+        }
 
-		#subtext {
-			position: absolute;
-			left: 50%;
-			top: 90%;
-			text-shadow: 0 0 5px #000, 0 0 5px #000, 0 0 5px #000;
-			transform: translate(-50%, -50%);
-			font-family: 'Courier New', Courier, monospace;
-			white-space: nowrap;
-			cursor: url(images/cursor.png) 16 16, auto !important;
-		}
-		
-		#pause {
-			opacity: 0;
-			background: #0000;
-			transition: border .15s linear, opacity .1s ease, background .1s ease-in-out;
-			border: 0;
-			position: fixed;
-			bottom: 5px;
-			display: flex;
-			font-family: 'Press Start 2P', cursive;
-			color: white;
-			left: 50%;
-			text-align: center;
-			transform-origin: 50%;
-			transform: translate(-50%, -50%);
-			-webkit-box-orient: vertical;
-			-webkit-box-direction: normal;
-			flex-direction: column;
-			justify-content: space-around;
-			-webkit-box-sizing: border-box;
-    		box-sizing: border-box;
-			height: 1.5rem;
-			cursor: url(images/cursor.png) 16 16, auto !important;
-		}
+        #main {
+            background: #000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 1s;
+            background: linear-gradient(rgba(0,0,0,0.97), rgba(0,0,0,0.97)), url(/api/placeholder/1920/1080);
+        }
 
-		#volume {
-			position: fixed;
-			bottom: 50px;
-			left: 50%;
-			transform-origin: 50%;
-			transform: translate(-50%, -50%);
-			width: 500px;
-			height: 3px;
-			background: #fff;
-			opacity: 0;
-			transition: opacity .3s ease-in-out;
-			cursor: url(images/cursor.png) 16 16, auto !important;
-		}
+        #main::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(32,128,32,0.2));
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+        
+        #submain {
+            background: rgba(0,32,0,0.3);
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 100px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transform-origin: 50% 50%;
+            box-shadow: 0 0 20px #0f0;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
 
-		#countdown {
-			position: fixed;
-			bottom: 100px;
-			left: 50%;
-			transform-origin: 50%;
-			transform: translate(-50%, -50%);
-			opacity: 0;
-			font-size: 2rem;
-			transition: opacity 1s ease-in-out;
-			cursor: url(images/cursor.png) 16 16, auto !important;
-			color: white;
-			font-family: 'Open Sans', sans-serif;
-		}
+        #t9tz {
+            font-size: 72px;
+            font-family: "Press Start 2P";
+            animation: glitch 2s infinite;
+            text-shadow: 2px 2px #f00;
+        }
 
-		#volume::-webkit-slider-thumb {
-			box-shadow: 0 0 5px #fff;
-			border-radius: 50%;
-			cursor: url(images/cursor.png) 16 16, auto !important;
-		}
-		
-		#volume::-moz-range-thumb {
-			box-shadow: 0 0 5px #fff;
-			border-radius: 50%;
-			cursor: url(images/cursor.png) 16 16, auto !important;
-		}
+        #subtext {
+            font-family: 'IBM Plex Mono';
+            white-space: nowrap;
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+            margin-top: 20px;
+        }
+        
+        .button {
+            color: #0f0;
+            background: rgba(0,32,0,0.3);
+            border: 1px solid #0f0;
+            padding: 20px;
+            font-family: 'IBM Plex Mono';
+            font-size: 16px;
+            text-decoration: none;
+            margin: 10px;
+            transition: all 0.3s ease;
+            width: 200px;
+            text-align: center;
+        }
 
-		#darkreaderwarning {
-			border-radius: 5px;
-			height: 64px;
-			opacity: 1;
-			border-color: #fff;
-			border-width: 2px;
-			background: #222;
-			color: #fff;
-			width: 100%;
-			display: none;
-		}
-		#darkreaderwarning span {
-			bottom: 50%;
-			right: 0%;
-			width: 100%;
-			position: absolute;
-		}
-		
-		[data-darkreader-mode="dynamic"] #darkreaderwarning {
-			display: block;
-			position: fixed;
-			margin: auto;
-			text-align: center;
-		}
+        .button:hover {
+            background: rgba(0,64,0,0.5);
+            box-shadow: 0 0 15px #0f0;
+            transform: scale(1.05);
+        }
 
-		.button {
-			color: #eee;
-			background: #1113;
-			border: 0 solid #0000;
-			padding: 30px;
-			font-family: Verdana;
-			font-size: 16px;
-			text-decoration: none;
-			text-shadow: 0 0 5px rgb(251, 136, 255), 0 0 5px rgb(251, 136, 255);
-			border-bottom: solid 1px rgb(251, 136, 255);
-			transition-property: opacity, border-bottom, background;
-			transition-duration: .5s;
-			width: 200px;
-			cursor: url(images/cursor.png) 16 16, auto !important;
-		}
+        #volume {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 3px;
+            background: #0f0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
 
-		.button:hover {
-			background: rgba(34, 34, 34, 0.25);
-			border-bottom: solid 1px rgb(254, 223, 255)
-		}
-		
-	</style>
-	<script>
-		window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-	</script>
-	<script defer="" src="js/script.js"></script>
-	<script>
-		function loaded() {
-			const main = document.getElementById("main")
-			const submain = document.getElementById("submain")
-			const t9tz = document.getElementById("t9tz")
-			const subtext = document.getElementById("subtext")
-			const audio = document.getElementById("audio")
-			const volume = document.getElementById("volume")
-			const pause = document.getElementById("pause")
-			const countdown = document.getElementById("countdown")
-			const darkreaderwarning = document.getElementById("darkreaderwarning")
-			pause.onclick = () => {
-				if (audio.paused) {
-					audio.play()
-					pause.innerHTML = "PLAYING"
-				} else {
-					audio.pause()
-					pause.innerHTML = "PAUSED"
-				}
-			}
-			volume.onmousemove = () => audio.volume = volume.value / 100
-			audio.ontimeupdate = () => audio.volume = volume.value / 100
-			window.onfocus = () => document.title = "t9tz's home"
-			window.onblur = () => document.title = "\u200E"
-			volume.value = 10
-			audio.volume = volume.value / 100
-			main.style.opacity = 1
-			const text = "welcome home..."
-			
-			function sleep(ms) {
-				return new Promise(resolve => setTimeout(resolve, ms));
-			}
+        #countdown {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            font-size: 2rem;
+            font-family: 'IBM Plex Mono';
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0;
+        }
 
-			async function button_animation(btn, fn) {
-				btn.disabled = true
-				btn.style.animation = "0.05s infinite alternate backwards blink"
-				
-				await sleep(500)
-				submain.style.transition = "transform .1s ease-in-out, opacity .1s ease-in-out"
-				submain.style.transform = "translate(-50%, -50%) scale(5, 0)"
-				submain.style.opacity = "0"
-				await sleep(100)
-				submain.style.transition = "transform 0s ease-in-out, opacity .5s ease-in-out"
-				submain.style.transform = "translate(-50%, -50%) scale(1, 0)"
-				await sleep(100)
-				submain.style.transition = "transform .5s ease-in-out, opacity .5s ease-in-out"
-				submain.style.boxShadow = "unset"
-				submain.style.transform = "translate(-50%, -50%) scale(1, 1)"
-				submain.style.opacity = "1"
+        #pause {
+            opacity: 0;
+            background: transparent;
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 10px;
+            font-family: 'Press Start 2P';
+            position: fixed;
+            bottom: 5px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
 
-				fn()
+        #pause:hover {
+            box-shadow: 0 0 15px #0f0;
+        }
+    </style>
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 
-				btn.disabled = false
-				btn.style.animation = ""
-			}
+        function loaded() {
+            const main = document.getElementById("main")
+            const submain = document.getElementById("submain")
+            const t9tz = document.getElementById("t9tz")
+            const subtext = document.getElementById("subtext")
+            const audio = document.getElementById("audio")
+            const volume = document.getElementById("volume")
+            const pause = document.getElementById("pause")
+            const countdown = document.getElementById("countdown")
 
-			function create_button(fn, text) {
-				const button = document.createElement("button")
-				button.className = "button"
-				button.onclick = fn
-				button.innerHTML = text
-				submain.appendChild(button)
-				return button
-			}
+            pause.onclick = () => {
+                if (audio.paused) {
+                    audio.play()
+                    pause.innerHTML = "PLAYING"
+                } else {
+                    audio.pause()
+                    pause.innerHTML = "PAUSED"
+                }
+            }
+            
+            volume.onmousemove = () => audio.volume = volume.value / 100
+            audio.ontimeupdate = () => audio.volume = volume.value / 100
+            window.onfocus = () => document.title = "t9tz's wired"
+            window.onblur = () => document.title = "\u200E"
+            volume.value = 10
+            audio.volume = volume.value / 100
+            main.style.opacity = 1
+            const text = "welcome to the wired..."
+            
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
 
-			function projects(...buttons) {
-				const ip_lookup = create_button(() => window.open("https://github.com/GloryWasHere/Ip-Lookup"), "ip lookup")
-				const phone_lookup = create_button(() => window.open("https://github.com/GloryWasHere/Phone-Lookup"), "phone lookup")
-				const unc_more = create_button(() => window.open("https://github.com/GloryWasHere/MoreUNC-Simplified"), "More UNC")
-				// if you're snooping, infinite is abandoned, the invite still works but you'll be disappointed <3
-				// const infinite = create_button(() => window.open("https://discord.gg/dzp26MtrM3"), "infinite")
-				const go_back = create_button(() => {
-					button_animation(go_back, () => {
-						for (let i = 0; i < buttons.length; i++)
-							buttons[i].style.display = "unset"
-							
-						ip_lookup.remove()
-						phone_lookup.remove()
-						// infinite.remove()
-						unc_more.remove()
-						go_back.remove()
-					})
-				}, "go back")
+            async function button_animation(btn, fn) {
+                btn.disabled = true
+                btn.style.animation = "0.05s infinite alternate backwards blink"
+                
+                await sleep(500)
+                submain.style.transition = "transform .1s ease-in-out, opacity .1s ease-in-out"
+                submain.style.transform = "translate(-50%, -50%) scale(5, 0)"
+                submain.style.opacity = "0"
+                await sleep(100)
+                submain.style.transition = "transform 0s ease-in-out, opacity .5s ease-in-out"
+                submain.style.transform = "translate(-50%, -50%) scale(1, 0)"
+                await sleep(100)
+                submain.style.transition = "transform .5s ease-in-out, opacity .5s ease-in-out"
+                submain.style.boxShadow = "unset"
+                submain.style.transform = "translate(-50%, -50%) scale(1, 1)"
+                submain.style.opacity = "1"
 
-				for (let i = 0; i < buttons.length; i++)
-					buttons[i].style.display = "none"
-			}
+                fn()
 
-			function resume(key) {
-				audio.play().then(() => {
-				
-					darkreaderwarning.style.opacity = .5
+                btn.disabled = false
+                btn.style.animation = ""
+            }
 
-					volume.style.opacity = .5
-					pause.style.opacity = .5
-					countdown.style.opacity = .7
-					document.body.onclick = ""
-					document.body.onkeydown = ""
-					t9tz.style.transition = "opacity .5s ease-in-out"
-					t9tz.style.opacity = "0"
-					button_animation(subtext, () => {
-						t9tz.remove()
-						subtext.remove()
-						submain.style.border = "unset"
+            function create_button(fn, text) {
+                const button = document.createElement("button")
+                button.className = "button"
+                button.onclick = fn
+                button.innerHTML = text
+                submain.appendChild(button)
+                return button
+            }
 
-						const github_button = create_button(() => window.open("https://github.com/GloryWasHere"), "github")
-						
-						const youtube_button = create_button(() => window.open("https://www.youtube.com/channel/UCgYcx8C0c-ya7OTNQvna9nQ"), "youtube")
-						
-						const discord_button = create_button(() => window.open("https://discord.gg/hbfzQHN3NY"), "discord")
+            function projects(...buttons) {
+                const ip_lookup = create_button(() => window.open("https://github.com/GloryWasHere/Ip-Lookup"), "ip lookup")
+                const phone_lookup = create_button(() => window.open("https://github.com/GloryWasHere/Phone-Lookup"), "phone lookup")
+                const unc_more = create_button(() => window.open("https://github.com/GloryWasHere/MoreUNC-Simplified"), "More UNC")
+                const go_back = create_button(() => {
+                    button_animation(go_back, () => {
+                        for (let i = 0; i < buttons.length; i++)
+                            buttons[i].style.display = "unset"
+                            
+                        ip_lookup.remove()
+                        phone_lookup.remove()
+                        unc_more.remove()
+                        go_back.remove()
+                    })
+                }, "go back")
 
-						const twitch_button = create_button(() => window.open("https://www.twitch.tv/1nfula"), "twitch")
-						
-						const projects_button = create_button(() => {
-							button_animation(projects_button, () => projects(github_button, youtube_button, discord_button, twitch_button, projects_button))
-						}, "projects")
-					})
-					setInterval(() => {
-						const now = Date.now()
-						const d_now = new Date(now)
-						const birthday = new Date(d_now.getFullYear(), 9, 31, 5)
-						const next_birthday = birthday - now > 0 ? birthday : new Date(d_now.getFullYear() + 1, 9, 31, 5)
-						// if birthday has passed pick next years' birthday
-						// not just adding year seconds because of dumb leap year math
-						const turning = next_birthday.getFullYear() - 2003
-						const zout = num => {
-							return "0".repeat(2 - num.toString().length) + num
-						}
-						const countdown_date = new Date(next_birthday - now)
-						countdown.innerHTML = `${turning} in ${zout(countdown_date.getMonth())}:${zout(countdown_date.getDate() - 1)}:${zout(countdown_date.getHours())}:${zout(countdown_date.getMinutes())}:${zout(countdown_date.getSeconds())}`
-					}, 100)
-				}).catch(() => {})
-			}
+                for (let i = 0; i < buttons.length; i++)
+                    buttons[i].style.display = "none"
+            }
 
-			const text_update_01 = setInterval(async () => {
-				subtext.innerHTML += text[subtext.innerHTML.length]
-				if (text[subtext.innerHTML.length] == undefined) {
-					clearInterval(text_update_01)
-					await sleep(500)
-					const text_update_02 = setInterval(() => {
-						subtext.innerHTML = subtext.innerHTML.substring(1, subtext.innerHTML.length - 1)
-						if (subtext.innerHTML.length == 1)
-							subtext.innerHTML = ""
+            function resume(key) {
+                audio.play().then(() => {
+                    volume.style.opacity = .5
+                    pause.style.opacity = .5
+                    countdown.style.opacity = .7
+                    document.body.onclick = ""
+                    document.body.onkeydown = ""
+                    t9tz.style.transition = "opacity .5s ease-in-out"
+                    t9tz.style.opacity = "0"
+                    button_animation(subtext, () => {
+                        t9tz.remove()
+                        subtext.remove()
+                        submain.style.border = "unset"
 
-						if (subtext.innerHTML.length == 0) {
-							clearInterval(text_update_02)
-							subtext.style.opacity = "0"
-							subtext.innerHTML = "click to continue..."
-							subtext.style.animation = "1s infinite alternate backwards blink"
-							
-							document.body.onkeydown = resume
-							document.body.onclick = resume
-						}
-					}, 1.5 / text.length * 1000)
-				}
-			}, 1.5 / text.length * 1000)
-		}
-	</script>
+                        const github_button = create_button(() => window.open("https://github.com/GloryWasHere"), "github")
+                        const youtube_button = create_button(() => window.open("https://www.youtube.com/channel/UCgYcx8C0c-ya7OTNQvna9nQ"), "youtube")
+                        const discord_button = create_button(() => window.open("https://discord.gg/hbfzQHN3NY"), "discord")
+                        const twitch_button = create_button(() => window.open("https://www.twitch.tv/1nfula"), "twitch")
+                        const projects_button = create_button(() => {
+                            button_animation(projects_button, () => projects(github_button, youtube_button, discord_button, twitch_button, projects_button))
+                        }, "projects")
+                    })
+                    setInterval(() => {
+                        const now = Date.now()
+                        const d_now = new Date(now)
+                        const birthday = new Date(d_now.getFullYear(), 9, 31, 5)
+                        const next_birthday = birthday - now > 0 ? birthday : new Date(d_now.getFullYear() + 1, 9, 31, 5)
+                        const turning = next_birthday.getFullYear() - 2003
+                        const zout = num => {
+                            return "0".repeat(2 - num.toString().length) + num
+                        }
+                        const countdown_date = new Date(next_birthday - now)
+                        countdown.innerHTML = `${turning} in ${zout(countdown_date.getMonth())}:${zout(countdown_date.getDate() - 1)}:${zout(countdown_date.getHours())}:${zout(countdown_date.getMinutes())}:${zout(countdown_date.getSeconds())}`
+                    }, 100)
+                }).catch(() => {})
+            }
+
+            const text_update_01 = setInterval(async () => {
+                subtext.innerHTML += text[subtext.innerHTML.length]
+                if (text[subtext.innerHTML.length] == undefined) {
+                    clearInterval(text_update_01)
+                    await sleep(500)
+                    const text_update_02 = setInterval(() => {
+                        subtext.innerHTML = subtext.innerHTML.substring(1, subtext.innerHTML.length - 1)
+                        if (subtext.innerHTML.length == 1)
+                            subtext.innerHTML = ""
+
+                        if (subtext.innerHTML.length == 0) {
+                            clearInterval(text_update_02)
+                            subtext.style.opacity = "0"
+                            subtext.innerHTML = "click to continue..."
+                            subtext.style.animation = "1s infinite alternate backwards blink"
+                            
+                            document.body.onkeydown = resume
+                            document.body.onclick = resume
+                        }
+                    }, 1.5 / text.length * 1000)
+                }
+            }, 1.5 / text.length * 1000)
+        }
+    </script>
 </head>
-<body onload="loaded()" oncontextmenu="return false" onkeyup="return false" onkeydown="return false">
-	<audio id="audio" src="media/audio.mp3"></audio>
-	<div id="main" style="opacity: 1;">
-		<div id="darkreaderwarning"><span>my website is meant to be viewed without darkreader, there is nothing which will strain your eyes, please disable it &lt;3</span></div>
-		<input id="volume" type="range" name="" step="0.01" min="0" max="100">
-		<button id="pause">PLAYING</button>
-		<div id="submain">
-			<span id="t9tz">t9tz</span>
-			<span id="subtext">welco</span>
-		</div>
-		<span id="countdown"></span>
-	</div>
+<body onload="loaded()" oncontextmenu="return false">
+    <audio id="audio" src="media/audio.mp3"></audio>
+    <div id="main">
+        <input id="volume" type="range" step="0.01" min="0" max="100">
+        <button id="pause">PLAYING</button>
+        <div id="submain">
+            <span id="t9tz">t9tz</span>
+            <span id="subtext">connecting to the wired...</span>
+        </div>
+        <span id="countdown"></span>
+    </div>
 </body>
 </html>
